@@ -6,14 +6,17 @@ from requests import get
 
 # https://developer.dnb.no/
 
+
 class Environment(str, Enum):
     TEST = "TEST"
     LIVE = "LIVE"
+
 
 ENV = {
     Environment.LIVE: "https://developer-api.dnb.no",
     Environment.TEST: "https://developer-api-testmode.dnb.no",
 }
+
 
 class Currency(str, Enum):
     NOK = "NOK"
@@ -35,7 +38,7 @@ def get_quote(
 
     response = get(
         url=base_url + f"/v2/convert/{quote_currency.value}",
-        headers={"x-api-key": os.environ.get(f"TEST_APP_{environment.value}_API_KEY")}
+        headers={"x-api-key": os.environ.get(f"TEST_APP_{environment.value}_API_KEY")},
     )
 
     return response.json()
@@ -56,7 +59,7 @@ def get_convert(
     response = get(
         url=base_url + f"/v2/{buy_currency.value}/convert/{sell_currency.value}",
         params={"buyAmount": 1},
-        headers={"x-api-key": os.environ.get(f"TEST_APP_{environment.value}_API_KEY")}
+        headers={"x-api-key": os.environ.get(f"TEST_APP_{environment.value}_API_KEY")},
     )
 
     return response.json()
